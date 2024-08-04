@@ -337,7 +337,7 @@ export const products = [
     gender: "Women",
     weight: "550g",
     quantity: 7,
-    image: sun11,
+    image: "https://term-project-assets.s3.amazonaws.com/sun11.png",
     rating: 4.8,
     price: 4999,
     newPrice: 4000,
