@@ -9,12 +9,15 @@ import {
 } from "./apiUrls";
 
 export const loginService = (email, password) =>
-  axios.post(LOGIN_URL, { email, password });
+  axios.post("https://lfleifh5db.execute-api.us-east-1.amazonaws.com/api/login", { email, password });
 
 export const signupService = (username, email, password) =>
-  axios.post(SIGNUP_URL, { username, email, password });
+  axios.post("https://7fxyshvb20.execute-api.us-east-1.amazonaws.com/api/signup", { username, email, password });
 
-export const getAllProductsService = () => axios.get(PRODUCTS_URL);
+export const getAllProductsService = () =>
+  axios.get(
+    "https://gy60l93350.execute-api.us-east-1.amazonaws.com/test/products"
+  );
 
 export const getProductByIdService = (productId) =>
   axios.get(`${PRODUCTS_URL}/${productId}`);
