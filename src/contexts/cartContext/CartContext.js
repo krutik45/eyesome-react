@@ -19,18 +19,20 @@ const CartContextProvider = ({ children }) => {
   const [disableCart, setDisableCart] = useState(false);
 
   const [state, dispatch] = useReducer(cartReducer, initialState);
+  const userInfoString = localStorage.getItem("userInfo");
+  const userInfo = JSON.parse(userInfoString);
 
   useEffect(() => {
     if (token) {
       setLoadingCart(true);
       (async () => {
         try {
-          const cartRes = await getCartItemsService(token);
-
+          const cartRes = await getCartItemsService(userInfo.email);
+          console.log("cartRes", cartRes);
           if (cartRes.status === 200) {
             dispatch({
               type: actionTypes.INITIALIZE_CART,
-              payload: cartRes.data.cart,
+              payload: cartRes.data,
             });
           }
         } catch (err) {
@@ -56,8 +58,9 @@ const CartContextProvider = ({ children }) => {
           ...product,
           qty: 1,
         },
-        token
+        userInfo.email
       );
+      console.log("response add to cart", response);
       if (response.status === 200 || response.status === 201) {
         dispatch({
           type: actionTypes.ADD_PRODUCT_TO_CART,
@@ -128,7 +131,11 @@ const CartContextProvider = ({ children }) => {
   const deleteProductFromCart = async (productId) => {
     setDisableCart(true);
     try {
-      const response = await deleteProductFromCartService(productId, token);
+      const response = await deleteProductFromCartService(
+        productId,
+        userInfo.email
+      );
+      console.log("response delete cart", response);
       if (response.status === 200 || response.status === 201) {
         dispatch({
           type: actionTypes.DELETE_PRODUCTS_FROM_CART,

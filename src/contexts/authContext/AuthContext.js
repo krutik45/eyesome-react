@@ -23,14 +23,19 @@ const AuthContextProvider = ({ children }) => {
     try {
       const response = await signupService(username, email, password);
       console.log(response);
-      if (response.status === 200 || response.status === 201) {
+      if (
+        response.data.statusCode === 200 ||
+        response.data.statusCode === 201
+      ) {
         localStorage.setItem("token", "token");
         localStorage.setItem("userInfo", JSON.stringify({ username, email }));
         setToken("token");
         notify("success", "Signed Up Successfully!!");
+      } else {
+        notify("Some Error Occurred!!");
       }
     } catch (err) {
-      console.log(err);
+      console.log("err", err);
       notify(
         "error",
         err?.response?.data?.errors
@@ -46,12 +51,18 @@ const AuthContextProvider = ({ children }) => {
     setLoggingIn(true);
     try {
       const response = await loginService(email, password);
-      console.log({ response });
-      if (response.status === 200 || response.status === 201) {
+      console.log("response login", response);
+      if (
+        response.data.statusCode === 200 ||
+        response.data.statusCode === 201
+      ) {
         localStorage.setItem("token", "token");
         localStorage.setItem("userInfo", JSON.stringify({ password, email }));
         setToken("token");
         notify("success", "Logged In Successfully!!");
+      } else {
+        console.log("in else");
+        notify("error","Some Error Occurred!!");
       }
     } catch (err) {
       console.log(err);

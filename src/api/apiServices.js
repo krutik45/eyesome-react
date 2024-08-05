@@ -9,10 +9,16 @@ import {
 } from "./apiUrls";
 
 export const loginService = (email, password) =>
-  axios.post("https://lfleifh5db.execute-api.us-east-1.amazonaws.com/api/login", { email, password });
+  axios.post(
+    "https://lfleifh5db.execute-api.us-east-1.amazonaws.com/api/login",
+    { email, password }
+  );
 
 export const signupService = (username, email, password) =>
-  axios.post("https://7fxyshvb20.execute-api.us-east-1.amazonaws.com/api/signup", { username, email, password });
+  axios.post(
+    "https://7fxyshvb20.execute-api.us-east-1.amazonaws.com/api/signup",
+    { username, email, password }
+  );
 
 export const getAllProductsService = () =>
   axios.get(
@@ -22,22 +28,18 @@ export const getAllProductsService = () =>
 export const getProductByIdService = (productId) =>
   axios.get(`${PRODUCTS_URL}/${productId}`);
 
-export const getCartItemsService = (token) =>
-  axios.get(CART_URL, {
-    headers: {
-      authorization: token,
-    },
-  });
-
-export const postAddProductToCartService = (product, token) =>
+export const getCartItemsService = (email) =>
   axios.post(
-    CART_URL,
-    { product },
+    "https://3bnbp20cya.execute-api.us-east-1.amazonaws.com/api/fetchCart",
     {
-      headers: {
-        authorization: token,
-      },
+      email,
     }
+  );
+
+export const postAddProductToCartService = (product, email) =>
+  axios.post(
+    "https://u1efzmgsn7.execute-api.us-east-1.amazonaws.com/api/addToCart",
+    { product, email }
   );
 
 export const postUpdateProductQtyCartService = (productId, type, token) =>
@@ -55,12 +57,11 @@ export const postUpdateProductQtyCartService = (productId, type, token) =>
     }
   );
 
-export const deleteProductFromCartService = (productId, token) =>
-  axios.delete(`${CART_URL}/${productId}`, {
-    headers: {
-      authorization: token,
-    },
-  });
+export const deleteProductFromCartService = (productId, email) =>
+  axios.post(
+    "https://iwjswakvve.execute-api.us-east-1.amazonaws.com/api/deleteFromCart",
+    { productId, email }
+  );
 
 export const getWishlistItemsService = (token) =>
   axios.get(WISHLIST_URL, {
