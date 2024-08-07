@@ -121,7 +121,7 @@ const ProductDetails = () => {
               {product?.inCart ? "Go to Bag" : "Add to Bag"}
             </button>
 
-            <button
+            {/* <button
               className="btn-rounded-primary rounded-full flex items-center gap-2 text-sm disabled:cursor-not-allowed"
               disabled={disableWish}
               onClick={() => {
@@ -148,7 +148,7 @@ const ProductDetails = () => {
                   <BsBookmarkHeart /> <span>Wishlist Item</span>
                 </>
               )}{" "}
-            </button>
+            </button> */}
           </div>
         </section>
       </main>

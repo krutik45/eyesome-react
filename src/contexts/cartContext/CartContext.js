@@ -32,7 +32,7 @@ const CartContextProvider = ({ children }) => {
           if (cartRes.status === 200) {
             dispatch({
               type: actionTypes.INITIALIZE_CART,
-              payload: cartRes.data,
+              payload: cartRes.data ? cartRes.data : [],
             });
           }
         } catch (err) {

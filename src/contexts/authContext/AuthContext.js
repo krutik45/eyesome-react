@@ -13,6 +13,13 @@ const AuthContextProvider = ({ children }) => {
   );
   const [loggingIn, setLoggingIn] = useState(false);
   const [signingUp, setSigningUp] = useState(false);
+  const [isAuthenticated, setIsAuthentictaed] = useState(
+    localStorage.getItem("userInfo")
+      ? JSON.parse(localStorage.getItem("userInfo")).email
+        ? true
+        : false
+      : false
+  );
 
   const signupHandler = async ({
     username = "",
@@ -23,14 +30,12 @@ const AuthContextProvider = ({ children }) => {
     try {
       const response = await signupService(username, email, password);
       console.log(response);
-      if (
-        response.data.statusCode === 200 ||
-        response.data.statusCode === 201
-      ) {
+      if (response.status === 200 || response.status === 201) {
         localStorage.setItem("token", "token");
         localStorage.setItem("userInfo", JSON.stringify({ username, email }));
         setToken("token");
         notify("success", "Signed Up Successfully!!");
+        setIsAuthentictaed(true);
       } else {
         notify("Some Error Occurred!!");
       }
@@ -57,12 +62,13 @@ const AuthContextProvider = ({ children }) => {
         response.data.statusCode === 201
       ) {
         localStorage.setItem("token", "token");
-        localStorage.setItem("userInfo", JSON.stringify({ password, email }));
+        localStorage.setItem("userInfo", JSON.stringify({ email }));
         setToken("token");
         notify("success", "Logged In Successfully!!");
+        setIsAuthentictaed(true);
       } else {
         console.log("in else");
-        notify("error","Some Error Occurred!!");
+        notify("error", "Some Error Occurred!!");
       }
     } catch (err) {
       console.log(err);
@@ -93,6 +99,7 @@ const AuthContextProvider = ({ children }) => {
         signupHandler,
         signingUp,
         userInfo,
+        isAuthenticated,
       }}
     >
       {children}

@@ -70,7 +70,7 @@ const Navbar = () => {
             <MdOutlineExplore className="xs:hidden" />
           </Link>
           <ul className=" hidden md:flex justify-between text-2xl ps-1">
-            <li
+            {/* <li
               className="relative bg-gray-200  p-2 rounded-full hover:bg-yellow-800 hover:text-white cursor-pointer mx-2 transition shadow-sm"
               onClick={() => navigate("/wishlist")}
             >
@@ -80,7 +80,7 @@ const Navbar = () => {
                   {wishlist.length}
                 </div>
               )}
-            </li>
+            </li> */}
             <li
               className="relative bg-yellow-500 text-white p-2 rounded-full hover:bg-yellow-800 cursor-pointer mx-2 transition shadow-sm"
               onClick={() => navigate("/cart")}

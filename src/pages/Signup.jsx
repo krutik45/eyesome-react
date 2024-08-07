@@ -7,7 +7,7 @@ import { useAuthContext } from "../contexts";
 import { useEffect, useState } from "react";
 
 const Signup = () => {
-  const { signupHandler, signingUp, isAuthenticated } = useAuthContext();
+  const { signupHandler, signingUp, token } = useAuthContext();
   const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState({
     username: "",
@@ -22,7 +22,7 @@ const Signup = () => {
 
   useEffect(() => {
     let id;
-    if (isAuthenticated) {
+    if (token) {
       id = setTimeout(() => {
         navigate("/");
       }, 1000);
@@ -31,7 +31,7 @@ const Signup = () => {
     return () => {
       clearInterval(id);
     };
-  }, [isAuthenticated]);
+  }, [token]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
